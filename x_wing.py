@@ -4,7 +4,7 @@ import random
 
 xwingcolors = ["Deep Pink", "brown", "Light Gray"]
 
-class xwing(turtle.Turtle):
+class XWing(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
         self.color(xwingcolors[2], xwingcolors[0])
@@ -87,7 +87,7 @@ class xwing(turtle.Turtle):
         # Checking if it hit the rebel's starcraft
         return None
 
-
+"""
 win = turtle.Screen()
 
 turtle.mode("logo")
@@ -99,3 +99,4 @@ xwing.drawing_xwing()
 for i in range(3):
     xwing.forward(100)
 turtle.done()
+"""

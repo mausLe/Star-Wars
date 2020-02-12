@@ -44,7 +44,7 @@ def border_collision(stuff):
     return False
 
 cannon = turtle.Turtle()
-
+cannon.speed(1)
 def shoot():
     cannon.penup()
     cannon.goto(100,-300)
@@ -55,7 +55,7 @@ def shoot():
 def repeat_shoot():
     cannon.color("Chartreuse")
     cannon.pensize(7)
-    cannon.forward(20)
+    cannon.forward(50)
     if border_collision(cannon):
         print("Hit")
         cannon.clear()
@@ -63,6 +63,7 @@ def repeat_shoot():
         turtle.ontimer(repeat_shoot,t=30)
 
 laser = Laser()
+
 
 turtle.onkeypress(shoot, "k")
 turtle.onkeypress(laser.shoot, "space")

@@ -81,7 +81,7 @@ class TIE(turtle.Turtle):
         # Checking if it hit the rebel's starcraft
         return None
 
-
+"""
 win = turtle.Screen()
 
 turtle.mode("logo")
@@ -93,3 +93,4 @@ tie.drawing_tie()
 for i in range(3):
     tie.forward(100)
 turtle.done()
+"""
