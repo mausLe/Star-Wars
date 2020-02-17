@@ -44,7 +44,7 @@ def border_collision(stuff):
     return False
 
 cannon = turtle.Turtle()
-cannon.speed(1)
+cannon.speed(10)
 def shoot():
     cannon.penup()
     cannon.goto(100,-300)

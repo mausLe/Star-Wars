@@ -74,14 +74,24 @@ class XWing(turtle.Turtle):
         p = self.get_poly()
         s = turtle.Shape("compound")
         s.addcomponent(p, xwingcolors[2], xwingcolors[0])
-        turtle.register_shape("selfAdvanced", s)
-        self.shape("selfAdvanced")
+        turtle.register_shape("X-Wing", s)
+        self.shape("X-Wing")
 
         return self
 
-    def orbit(self):
 
-        return None
+    def turn_left(self):
+        self.left(10)
+
+    def turn_right(self):
+        self.right(10)
+
+    def go_forward(self):
+        self.forward(10)
+        # self.forward(2)
+        # self.forward(2)
+    def go_backward(self):
+        self.backward(10)
 
     def check_hit(self):
         # Checking if it hit the rebel's starcraft
