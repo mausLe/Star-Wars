@@ -32,7 +32,7 @@ xwing.position()
 xwing.heading()
 # laser = shooting_effect.LaserCannon(xwing.position(), xwing.heading())
 # laser = shooting_effect.LaserCannon(xwing)
-laser = shooting_effect.TIECannon(xwing)
+laser = shooting_effect.XWingCannon(xwing, tie)
 
 # laser1 = shoot_function.Laser()
 
@@ -41,10 +41,11 @@ win.onkeypress(xwing.go_forward, "w")
 win.onkeypress(xwing.go_backward, "s")
 win.onkeypress(xwing.turn_right, "r")
 win.onkeypress(xwing.turn_left, "q")
-
+l =  laser.enemy_coordinates_f()
+print(l)
+laser.check_hit_enemy()
 
 win.listen()
-print(turtle.getshapes())
 
 while True:
 

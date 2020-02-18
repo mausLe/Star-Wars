@@ -51,7 +51,6 @@ class TIE(turtle.Turtle):
         self.forward(20)
         self.left(90)
         self.forward(74.47)
-
         self.left(90)
         self.forward(20)
         self.left(90)
@@ -80,6 +79,9 @@ class TIE(turtle.Turtle):
     def check_hit(self):
         # Checking if it hit the rebel's starcraft
         return None
+    def appearence(self):
+        list = [75, 75, 150, 75]
+        return list
 
 """
 win = turtle.Screen()

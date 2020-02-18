@@ -93,8 +93,13 @@ class XWing(turtle.Turtle):
     def go_backward(self):
         self.backward(10)
 
-    def check_hit(self):
+    def appearence(self):
+        list = [45, 100, 90, 100]
+        return list
+
+    # def check_hit(self):
         # Checking if it hit the rebel's starcraft
+
         return None
 
 """
