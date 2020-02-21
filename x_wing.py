@@ -8,11 +8,11 @@ class XWing(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
         self.color(xwingcolors[2], xwingcolors[0])
+        self.hideturtle()
 
     def drawing_xwing(self):
         # create body of the self
         self.begin_poly()
-        self.hideturtle()
         self.penup()
         self.speed(0)
         self.color("Yellow")

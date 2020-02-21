@@ -8,12 +8,12 @@ class TIE(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
         self.color(tiecolors[2], tiecolors[0])
+        self.hideturtle()
 
     def drawing_tie(self):
         # create body of the tie
         self.begin_poly()
         self.penup()
-        self.hideturtle()
 
         self.speed(0)
         self.left(90);
