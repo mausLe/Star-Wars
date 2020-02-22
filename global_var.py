@@ -1,4 +1,4 @@
 
 global width, height
-width = 1000
-height = 700
+width = 1280
+height = 720

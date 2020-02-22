@@ -67,6 +67,7 @@ class LaserCannon(turtle.Turtle):
         return False
 
     def shoot(self):
+        self.hideturtle()
         self.penup()
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
@@ -85,7 +86,6 @@ class LaserCannon(turtle.Turtle):
             # turtle.ontimer(self.repeat_shoot, t = 5)
             turtle.ontimer(self.repeat_shoot, t = 1)
 
-
     def enemy_coordinates_f(self):
         turtle1 = turtle.Turtle()
         turtle1.hideturtle()
@@ -102,7 +102,7 @@ class LaserCannon(turtle.Turtle):
             xy = [x_cor, y_cor]
             self.enemy_coordinates.append(xy)
 
-        turtle1.reset()
+        turtle1.clear()
 
         return self.enemy_coordinates
 
@@ -113,8 +113,7 @@ class LaserCannon(turtle.Turtle):
 # X-Wing inherite from LaserCannon
 class XWingCannon(LaserCannon):
     def check_hit_TIE(self):
-
-
+        self.hideturtle()
 
         return False
 

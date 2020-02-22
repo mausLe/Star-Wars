@@ -1,6 +1,7 @@
 import turtle
 import time
 import random
+import os, sys
 # from playsound import playsound # import playsound to play a fascinating theme
 
 import global_var
@@ -9,37 +10,37 @@ import x_wing      # To create the Rebel's figher
 import shooting_effect #
 # import shoot_function
 
+os.chdir(os.path.dirname(sys.argv[0]))
 
 # file = "C:\Stuff\Teaching at Teky\Star Wars\Vader.mp3"
 # playsound(file)
 win = turtle.Screen()
 width, height = global_var.width, global_var.height
 win.setup(width, height)
-win.bgcolor("pink")
-win.tracer(1)
-
+# win.bgcolor("pink")
+win.bgpic("bg.gif")
+win.update()
+win.tracer(0)
 turtle.mode("logo")
 
 tie = tie_fighter.TIE()
 tie.drawing_tie()
 tie.speed(10)
 tie.right(90)
-tie.forward(400)
+tie.forward(200)
 
 xwing = x_wing.XWing()
 xwing.drawing_xwing()
 xwing.speed(10)
-
-
 
 xwing.position()
 xwing.heading()
 # laser = shooting_effect.LaserCannon(xwing.position(), xwing.heading())
 # laser = shooting_effect.LaserCannon(xwing)
 # laser = shooting_effect.XWingCannon(xwing, tie)
+
+
 laser = shooting_effect.TIECannon(tie, xwing)
-
-
 # laser1 = shoot_function.Laser()
 
 win.onkeypress(laser.shoot, "space")
@@ -49,12 +50,13 @@ win.onkeypress(xwing.turn_right, "r")
 win.onkeypress(xwing.turn_left, "q")
 
 l =  laser.enemy_coordinates_f()
+laser.check_hit_enemy()
+laser.orbit()
 print(turtle.turtles())
 win.listen()
 
 while True:
 
-    laser.check_hit_enemy()
     win.update()
 
 turtle.done()
