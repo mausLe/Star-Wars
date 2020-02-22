@@ -14,6 +14,7 @@ class LaserCannon(turtle.Turtle):
         self.hideturtle()
         self.color(cannon_colors[0])
         self.pensize(7)
+        self.penup()
         self.speed(0)
         self.enemy = enemy
         self.enemy_coordinates = []
@@ -21,8 +22,30 @@ class LaserCannon(turtle.Turtle):
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
 
+    def enemy_coordinates_f(self):
+        turtle1 = turtle.Turtle()
+        # turtle1.speed(1)
+        turtle1.hideturtle()
+        turtle1.penup()
+        turtle1.goto(self.enemy.position())
+        turtle1.setheading(self.enemy.heading())
+        list = self.enemy.appearence()
+        self.enemy_coordinates.clear()
+        for i in range(len(list)):
+            turtle1.left(90)
+            turtle1.forward(list[i])
+            x_cor = round(turtle1.xcor())
+            y_cor = round(turtle1.ycor())
+            xy = [x_cor, y_cor]
+            self.enemy_coordinates.append(xy)
+
+        turtle1.clear()
+
+        return self.enemy_coordinates
+
     def check_hit_enemy(self):
-            list = self.enemy_coordinates # coordinates of A, B, C, D
+            list = self.enemy_coordinates_f() # coordinates of A, B, C, D
+
             """
             B______________A
             |              |
@@ -79,36 +102,13 @@ class LaserCannon(turtle.Turtle):
         self.repeat_shoot()
 
     def repeat_shoot(self):
+        self.pendown()
         self.forward(5)
-        if self.check_collision(): # or self.check_hit_enemy():
+        if self.check_collision() or self.check_hit_enemy():
             self.clear()
         else:
             # turtle.ontimer(self.repeat_shoot, t = 5)
             turtle.ontimer(self.repeat_shoot, t = 1)
-
-    def enemy_coordinates_f(self):
-        turtle1 = turtle.Turtle()
-        turtle1.hideturtle()
-        turtle1.penup()
-        turtle1.goto(self.enemy.position())
-        turtle1.setheading(self.enemy.heading())
-        list = self.enemy.appearence()
-        self.enemy_coordinates.clear()
-        for i in range(len(list)):
-            turtle1.forward(list[i])
-            turtle1.left(90)
-            x_cor = round(turtle1.xcor())
-            y_cor = round(turtle1.ycor())
-            xy = [x_cor, y_cor]
-            self.enemy_coordinates.append(xy)
-
-        turtle1.clear()
-
-        return self.enemy_coordinates
-
-
-
-
 
 # X-Wing inherite from LaserCannon
 class XWingCannon(LaserCannon):
@@ -125,6 +125,7 @@ class TIECannon(LaserCannon):
         self.hideturtle()
         self.color(cannon_colors[random.randint(1, len(cannon_colors) - 1)])
         self.pensize(7)
+        self.penup()
         self.speed(0)
         self.enemy = enemy
         self.enemy_coordinates = []

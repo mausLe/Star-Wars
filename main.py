@@ -27,7 +27,7 @@ tie = tie_fighter.TIE()
 tie.drawing_tie()
 tie.speed(10)
 tie.right(90)
-tie.forward(200)
+tie.backward(200)
 
 xwing = x_wing.XWing()
 xwing.drawing_xwing()
@@ -40,8 +40,13 @@ xwing.heading()
 # laser = shooting_effect.XWingCannon(xwing, tie)
 
 
-laser = shooting_effect.TIECannon(tie, xwing)
+
 # laser1 = shoot_function.Laser()
+laser = shooting_effect.TIECannon(tie, xwing)
+def check():
+    l =  laser.enemy_coordinates_f()
+    print(l)
+    laser.check_hit_enemy()
 
 win.onkeypress(laser.shoot, "space")
 win.onkeypress(xwing.go_forward, "w")
@@ -49,14 +54,14 @@ win.onkeypress(xwing.go_backward, "s")
 win.onkeypress(xwing.turn_right, "r")
 win.onkeypress(xwing.turn_left, "q")
 
-l =  laser.enemy_coordinates_f()
-laser.check_hit_enemy()
-laser.orbit()
-print(turtle.turtles())
+win.onkeypress(check, "c")
+
 win.listen()
 
 while True:
-
+    for i in range(4):
+        tie.forward(300)
+        tie.right(90)
     win.update()
 
 turtle.done()
