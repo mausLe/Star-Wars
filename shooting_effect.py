@@ -3,6 +3,7 @@ import time
 import random
 import math #to calculate square root
 import global_var
+import winsound
 
 cannon_colors = ["Red", "Chartreuse", "Deep Sky Blue", "Deep Pink"]
 
@@ -21,6 +22,7 @@ class LaserCannon(turtle.Turtle):
         self.starcraft = starcraft
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
+        self.sound = 'XWing-Laser.wav'
 
     def enemy_coordinates_f(self):
         turtle1 = turtle.Turtle()
@@ -62,10 +64,10 @@ class LaserCannon(turtle.Turtle):
             PC = round(math.sqrt((C[0] - self.xcor())**2 + (C[1] - self.ycor())**2))
             PD = round(math.sqrt((D[0] - self.xcor())**2 + (D[1] - self.ycor())**2))
 
-            P1 = (PA+PB+AB)//2 # PAB
-            P2 = (PB+PC+BC)//2 # PBC
-            P3 = (PC+PD+CD)//2 # PCD
-            P4 = (PD+PA+DA)//2 # PDA
+            P1 = (PA+PB+AB)//2 + 1 # PAB
+            P2 = (PB+PC+BC)//2 + 1 # PBC
+            P3 = (PC+PD+CD)//2 + 1 # PCD
+            P4 = (PD+PA+DA)//2 + 1 # PDA
 
             PAB = math.sqrt(P1*(P1 - PA)*(P1 - PB)*(P1 - AB))
             PBC = math.sqrt(P2*(P2 - PB)*(P2 - PC)*(P2 - BC))
@@ -73,11 +75,11 @@ class LaserCannon(turtle.Turtle):
             PDA = math.sqrt(P4*(P4 - PD)*(P4 - PA)*(P4 - DA))
 
             if (PAB + PBC + PCD + PDA > S):
-                False
+                return False
                 # print("Missed")
             else:
                 print("Hit")
-                True
+                return True
 
     def check_collision(self):
         width = global_var.width
@@ -89,6 +91,15 @@ class LaserCannon(turtle.Turtle):
 
         return False
 
+    def repeat_shoot(self):
+        self.pendown()
+        self.forward(10)
+        if self.check_collision() or self.check_hit_enemy():
+            self.clear()
+        else:
+            # turtle.ontimer(self.repeat_shoot, t = 5)
+            turtle.ontimer(self.repeat_shoot, t = 1)
+
     def shoot(self):
         self.hideturtle()
         self.penup()
@@ -99,16 +110,8 @@ class LaserCannon(turtle.Turtle):
         # self.setheading(self.starcraft.heading())
         self.right(90)
         self.pendown()
+        winsound.PlaySound(self.sound, winsound.SND_ASYNC)
         self.repeat_shoot()
-
-    def repeat_shoot(self):
-        self.pendown()
-        self.forward(5)
-        if self.check_collision() or self.check_hit_enemy():
-            self.clear()
-        else:
-            # turtle.ontimer(self.repeat_shoot, t = 5)
-            turtle.ontimer(self.repeat_shoot, t = 1)
 
 # X-Wing inherite from LaserCannon
 class XWingCannon(LaserCannon):
@@ -132,8 +135,8 @@ class TIECannon(LaserCannon):
         self.starcraft = starcraft
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
-    """
-    """
+        self.sound = 'TIE-Fire.wav'
+
 
     def orbit(self):
 

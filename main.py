@@ -2,7 +2,7 @@ import turtle
 import time
 import random
 import os, sys
-# from playsound import playsound # import playsound to play a fascinating theme
+import winsound
 
 import global_var
 import tie_fighter # To create the Empire's Starcrafts
@@ -10,6 +10,7 @@ import x_wing      # To create the Rebel's figher
 import shooting_effect #
 # import shoot_function
 
+winsound.PlaySound("sound\XWing-Laser.wav", winsound.SND_ASYNC)
 os.chdir(os.path.dirname(sys.argv[0]))
 
 # file = "C:\Stuff\Teaching at Teky\Star Wars\Vader.mp3"
@@ -43,6 +44,8 @@ xwing.heading()
 
 # laser1 = shoot_function.Laser()
 laser = shooting_effect.TIECannon(tie, xwing)
+# laser = shooting_effect.XWingCannon(xwing, tie)
+
 def check():
     l =  laser.enemy_coordinates_f()
     print(l)

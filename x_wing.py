@@ -81,10 +81,10 @@ class XWing(turtle.Turtle):
 
 
     def turn_left(self):
-        self.left(10)
+        self.left(5)
 
     def turn_right(self):
-        self.right(10)
+        self.right(5)
 
     def go_forward(self):
         self.forward(10)
