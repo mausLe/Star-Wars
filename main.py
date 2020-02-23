@@ -10,8 +10,9 @@ import x_wing      # To create the Rebel's figher
 import shooting_effect #
 # import shoot_function
 
-winsound.PlaySound("sound\XWing-Laser.wav", winsound.SND_ASYNC)
 os.chdir(os.path.dirname(sys.argv[0]))
+# print("Working dir: ", os.getcwd())
+# winsound.PlaySound("src\Darth-Vader.wav", winsound.SND_ASYNC)
 
 # file = "C:\Stuff\Teaching at Teky\Star Wars\Vader.mp3"
 # playsound(file)
@@ -19,7 +20,7 @@ win = turtle.Screen()
 width, height = global_var.width, global_var.height
 win.setup(width, height)
 # win.bgcolor("pink")
-win.bgpic("bg.gif")
+win.bgpic("src\\bg.gif")
 win.update()
 win.tracer(0)
 turtle.mode("logo")
@@ -43,8 +44,8 @@ xwing.heading()
 
 
 # laser1 = shoot_function.Laser()
-laser = shooting_effect.TIECannon(tie, xwing)
-# laser = shooting_effect.XWingCannon(xwing, tie)
+# laser = shooting_effect.TIECannon(tie, xwing)
+laser = shooting_effect.XWingCannon(xwing, tie)
 
 def check():
     l =  laser.enemy_coordinates_f()

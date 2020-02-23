@@ -2,8 +2,9 @@ import turtle
 import time
 import random
 import math #to calculate square root
-import global_var
 import winsound
+
+import global_var
 
 cannon_colors = ["Red", "Chartreuse", "Deep Sky Blue", "Deep Pink"]
 
@@ -22,7 +23,7 @@ class LaserCannon(turtle.Turtle):
         self.starcraft = starcraft
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
-        self.sound = 'XWing-Laser.wav'
+        self.sound = 'src\XWing-Laser.wav'
 
     def enemy_coordinates_f(self):
         turtle1 = turtle.Turtle()
@@ -50,8 +51,8 @@ class LaserCannon(turtle.Turtle):
 
             """
             B______________A
-            |              |
-            |              |
+        \___|              | \
+        /   |              | /
             C______________D
             """
             A, B, C, D = list
@@ -64,21 +65,28 @@ class LaserCannon(turtle.Turtle):
             PC = round(math.sqrt((C[0] - self.xcor())**2 + (C[1] - self.ycor())**2))
             PD = round(math.sqrt((D[0] - self.xcor())**2 + (D[1] - self.ycor())**2))
 
-            P1 = (PA+PB+AB)//2 + 1 # PAB
-            P2 = (PB+PC+BC)//2 + 1 # PBC
-            P3 = (PC+PD+CD)//2 + 1 # PCD
-            P4 = (PD+PA+DA)//2 + 1 # PDA
+            P1 = (PA+PB+AB)//2 # PAB
+            P2 = (PB+PC+BC)//2 # PBC
+            P3 = (PC+PD+CD)//2 # PCD
+            P4 = (PD+PA+DA)//2 # PDA
 
-            PAB = math.sqrt(P1*(P1 - PA)*(P1 - PB)*(P1 - AB))
-            PBC = math.sqrt(P2*(P2 - PB)*(P2 - PC)*(P2 - BC))
-            PCD = math.sqrt(P3*(P3 - PC)*(P3 - PD)*(P3 - CD))
-            PDA = math.sqrt(P4*(P4 - PD)*(P4 - PA)*(P4 - DA))
+            S1 = P1*(P1 - PA)*(P1 - PB)*(P1 - AB)
+            S2 = P2*(P2 - PB)*(P2 - PC)*(P2 - BC)
+            S3 = P3*(P3 - PC)*(P3 - PD)*(P3 - CD)
+            S4 = P4*(P4 - PD)*(P4 - PA)*(P4 - DA)
+            S2s = [S1, S2, S3, S4]
 
-            if (PAB + PBC + PCD + PDA > S):
+            for i in range (len(S2s)):
+                if S2s[i] > 0:
+                    S2s[i] = math.sqrt(S2s[i])
+                else:
+                    S2s[i] = 0
+
+            # if (PAB + PBC + PCD + PDA > S):
+            if (S2s[0] + S2s[1] + S2s[2] + S2s[3] > S):
                 return False
-                # print("Missed")
             else:
-                print("Hit")
+                # print("Hit")
                 return True
 
     def check_collision(self):
@@ -135,10 +143,8 @@ class TIECannon(LaserCannon):
         self.starcraft = starcraft
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
-        self.sound = 'TIE-Fire.wav'
-
+        self.sound = 'src\TIE-Fire.wav'
 
     def orbit(self):
-
 
         return None
