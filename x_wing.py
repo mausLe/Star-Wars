@@ -88,8 +88,7 @@ class XWing(turtle.Turtle):
 
     def go_forward(self):
         self.forward(10)
-        # self.forward(2)
-        # self.forward(2)
+
     def go_backward(self):
         self.backward(10)
 
@@ -101,17 +100,3 @@ class XWing(turtle.Turtle):
         # Checking if it hit the rebel's starcraft
 
         return None
-
-"""
-win = turtle.Screen()
-
-turtle.mode("logo")
-xwing = xwing()
-
-xwing.drawing_xwing()
-
-
-for i in range(3):
-    xwing.forward(100)
-turtle.done()
-"""

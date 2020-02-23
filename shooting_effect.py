@@ -12,7 +12,6 @@ class LaserCannon(turtle.Turtle):
 
     def __init__(self, starcraft, enemy): # Parameter 0-Rebel, 1-Empire
         turtle.Turtle.__init__(self)
-        # self.color(tie_cannon_colors[side*(random.randint(1, len(tie_cannon_colors)))])
         self.hideturtle()
         self.color(cannon_colors[0])
         self.pensize(7)
@@ -23,11 +22,10 @@ class LaserCannon(turtle.Turtle):
         self.starcraft = starcraft
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
-        self.sound = 'src\XWing-Laser.wav'
+        self.sound = 'src\\XWing-Laser.wav'
 
     def enemy_coordinates_f(self):
         turtle1 = turtle.Turtle()
-        # turtle1.speed(1)
         turtle1.hideturtle()
         turtle1.penup()
         turtle1.goto(self.enemy.position())
@@ -49,6 +47,9 @@ class LaserCannon(turtle.Turtle):
     def check_hit_enemy(self):
             list = self.enemy_coordinates_f() # coordinates of A, B, C, D
 
+            # Set a bounding box around enemy
+            # calculate sum of triangles that created by Laser 4 points bounding box
+            # if sum <= square of bounding box then laser hit enemy
             """
             B______________A
         \___|              | \
@@ -82,11 +83,10 @@ class LaserCannon(turtle.Turtle):
                 else:
                     S2s[i] = 0
 
-            # if (PAB + PBC + PCD + PDA > S):
             if (S2s[0] + S2s[1] + S2s[2] + S2s[3] > S):
                 return False
             else:
-                # print("Hit")
+                winsound.PlaySound("src\\Explosion.wav", winsound.SND_ASYNC)
                 return True
 
     def check_collision(self):
@@ -105,7 +105,6 @@ class LaserCannon(turtle.Turtle):
         if self.check_collision() or self.check_hit_enemy():
             self.clear()
         else:
-            # turtle.ontimer(self.repeat_shoot, t = 5)
             turtle.ontimer(self.repeat_shoot, t = 1)
 
     def shoot(self):
@@ -115,7 +114,6 @@ class LaserCannon(turtle.Turtle):
         self.setheading(self.starcraft.heading())
         self.left(90)
         self.forward(2) # Adjust laser cannon position
-        # self.setheading(self.starcraft.heading())
         self.right(90)
         self.pendown()
         winsound.PlaySound(self.sound, winsound.SND_ASYNC)
@@ -124,15 +122,13 @@ class LaserCannon(turtle.Turtle):
 # X-Wing inherite from LaserCannon
 class XWingCannon(LaserCannon):
     def check_hit_TIE(self):
-        self.hideturtle()
 
-        return False
+        return None
 
 # TIE inherite from LaserCannon
 class TIECannon(LaserCannon):
     def __init__(self, starcraft, enemy): # Parameter 0-Rebel, 1-Empire
         turtle.Turtle.__init__(self)
-        # self.color(tie_cannon_colors[side*(random.randint(1, len(tie_cannon_colors)))])
         self.hideturtle()
         self.color(cannon_colors[random.randint(1, len(cannon_colors) - 1)])
         self.pensize(7)
@@ -143,7 +139,7 @@ class TIECannon(LaserCannon):
         self.starcraft = starcraft
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
-        self.sound = 'src\TIE-Fire.wav'
+        self.sound = 'src\\TIE-Fire.wav'
 
     def orbit(self):
 

@@ -82,17 +82,3 @@ class TIE(turtle.Turtle):
     def appearence(self):
         list = [75, 75, 150, 75]
         return list
-
-"""
-win = turtle.Screen()
-
-turtle.mode("logo")
-tie = TIE()
-
-tie.drawing_tie()
-
-
-for i in range(3):
-    tie.forward(100)
-turtle.done()
-"""
