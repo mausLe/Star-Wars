@@ -11,8 +11,10 @@ class TIE(turtle.Turtle):
         self.color(tiecolors[2], tiecolors[0])
         self.hideturtle()
         self.penup()
+        self.name = "TIE Fighter"
         self.dir = 1 # Positive # -1 is Neg
-        self.fire = random.randint(-500, 500)
+        self.circle_route_pos = random.randint(-500, 500)
+        self.fire = random.randrange(105, 270, 15)
         #self.goto(0,300)
 
     def drawing_tie(self):
@@ -85,51 +87,51 @@ class TIE(turtle.Turtle):
         if (x_cor > global_var.width/2 + 80) or (x_cor < -global_var.width/2 - 80):
             self.dir = -self.dir
             self.right(180)
-        # fire_pos_abs = abs(self.fire)
+            self.circle_route_pos = random.randint(-500, 500)
+            # print(self.circle_route_pos)
+
+        # fire_pos_abs = abs(self.circle_route_pos)
         # x_cor_abs = abs(x_cor)
 
-        if ((abs(self.fire - x_cor) <= 10) and y_cor == 270) or (y_cor < 265): # Tie meets the fire position
+        if ((abs(self.circle_route_pos - x_cor) <= 10) and y_cor == 270) or (y_cor < 265): # Tie meets the fire position
             if self.dir == 1: # Direction West -> East
-                # self.fire = self.fire - 20
+                # self.circle_route_pos = self.circle_route_pos - 20
+                self.fire = random.randrange(105, 270, 15)
                 self.circle(-100, 15)
             else:
+                self.fire = random.randrange(90, 255, 15)
                 self.circle(100, 15)
-                # self.fire = self.fire + 20
-
+                # self.circle_route_pos = self.circle_route_pos + 20
 
         if (y_cor == 270):
             self.forward(20)
         elif (self.dir == 1) and (head == 90): # Direction West -> East
-            self.goto(self.fire + 40, 270)
+            self.goto(self.circle_route_pos + 40, 270)
             self.setheading(90)
         elif (self.dir == -1) and (head == 270):
-            self.goto(self.fire - 40, 270)
+            self.goto(self.circle_route_pos - 40, 270)
             self.setheading(270)
 
-        print("heading: ", head, ",   fire pos: ", self.fire, ",    dir: ", self.dir)
-        print(self.xcor()," ", self.ycor())
+        # print("heading: ", head, ",   fire pos: ", self.circle_route_pos, ",    dir: ", self.dir)
+        # print(self.xcor()," ", self.ycor())
 
-
-
-        turtle.ontimer(self.orbit,50)
-
+        turtle.ontimer(self.orbit,40)
         """
                 elif self.dir == 1: # Direction West -> East
                     self.circle(100, 15)
                 else:
                     self.circle(-100, 15)
         """
-
     def move(self): # Bổ sung hàm move
         self.forward(50)
         if self.xcor() > global_var.width/2 - 50 or self.xcor() < -global_var.width/2 + 50:
             self.right(180)
             self.sety(self.ycor()-100)
 
-        if global_var.tie_status: # Thêm điều kiện nếu như bị bắn vào đây
-            turtle.ontimer(self.move,50)
+        # if global_var.tie_status: # Thêm điều kiện nếu như bị bắn vào đây
+        turtle.ontimer(self.move,50)
 
-            """
+        """
         if not global_var.tie_status:
             self.setposition(-400, 250)
             global_var.tie_status = 1
@@ -137,9 +139,15 @@ class TIE(turtle.Turtle):
             self.clear()
 
             return None
-            """
 
-    def check_hit(self):
+    def random_shoot(self):
+        if (self.heading() == self.fire):
+            return True
+        else:
+            return False
+        """
+
+    def tie_shoot(self):
         # Checking if it hit the rebel's starcraft
         return None
 

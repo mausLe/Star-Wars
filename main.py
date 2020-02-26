@@ -39,20 +39,27 @@ tie.move() # Bổ sung hàm move
 xwing = x_wing.XWing()
 xwing.drawing_xwing()
 xwing.speed(0)
-xwing.backward(200)
+xwing.backward(250)
 
 ties = [tie_fighter.TIE() for i in range(1)]
 for tie in ties:
     tie.drawing_tie()
-    tie.speed(1)
 
-#laser1 = shooting_effect.XWingCannon(xwing, ties[1])
+XWing_laser = shooting_effect.XWingCannon(xwing, ties)
 
-laser = shooting_effect.LaserCannon(xwing, ties)
+TIE0_laser = shooting_effect.TIECannon(ties[0], xwing)
 ties[0].goto(700, 270)
 ties[0].right(90)
-
 ties[0].orbit()
+
+TIE0_laser = shooting_effect.TIECannon(ties[0], xwing)
+# TIE1_laser = shooting_effect.TIECannon(ties[1], xwing)
+
+# ties[1].goto(-200, 270)
+# ties[1].right(90)
+# ties[1].orbit()
+# print(ties[1].position()," ", ties[1].fire)
+
 
 # ties[1].goto(0, 270)
 # ties[1].right(270)
@@ -60,7 +67,7 @@ ties[0].orbit()
 # ties[1].orbit() # Bổ sung hàm move
     # win.ontimer(tie1.move(), 500) # Bổ sung hàm move
 
-win.onkeypress(laser.shoot, "space")
+win.onkeypress(XWing_laser.shoot, "space")
 # win.onkeypress(laser1.shoot, "k")
 
 # laser = shooting_effect.XWingCannon(xwing, tie)
@@ -73,6 +80,8 @@ win.listen()
 
 while True:
     # Trong hàm while True chỉ để trường hợp khi nào thua cuộc thì break --> kết thúc trò chơi
+    TIE0_laser.random_shoot(ties[0].fire)
+    # TIE1_laser.random_shoot(ties[1].fire)
     win.update()
     # if global_var.tie_status == 0:
     #     win.ontimer(win.bye, 1000)

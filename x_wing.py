@@ -9,6 +9,7 @@ class XWing(turtle.Turtle):
         turtle.Turtle.__init__(self)
         self.color(xwingcolors[2], xwingcolors[0])
         self.hideturtle()
+        self.name = "X-Wing"
 
     def drawing_xwing(self):
         # create body of the self

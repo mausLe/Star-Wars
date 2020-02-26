@@ -107,8 +107,8 @@ class LaserCannon(turtle.Turtle):
                 self.enemy[tie_index].dir = -1
                 self.enemy[tie_index].goto(global_var.width//2 + 80, 270)
                 self.enemy[tie_index].setheading(270)
-                print(self.enemy[tie_index].position())
-                print(self.enemy[tie_index].heading())
+                # print(self.enemy[tie_index].position())
+                # print(self.enemy[tie_index].heading())
 
 
             else:
@@ -162,7 +162,7 @@ class TIECannon(LaserCannon):
     def __init__(self, starcraft, enemy): # Parameter 0-Rebel, 1-Empire
         turtle.Turtle.__init__(self)
         self.hideturtle()
-        self.color(cannon_colors[random.randint(1, len(cannon_colors) - 1)])
+        self.color("Chartreuse")#cannon_colors[random.randint(1, len(cannon_colors) - 1)])
         self.pensize(7)
         self.penup()
         self.speed(0)
@@ -172,3 +172,85 @@ class TIECannon(LaserCannon):
         self.goto(self.starcraft.position())
         self.setheading(self.starcraft.heading())
         self.sound = 'src\\TIE-Fire.wav'
+
+    def enemy_coordinates_f(self):
+        turtle1 = turtle.Turtle()
+        turtle1.hideturtle()
+        turtle1.penup()
+        turtle1.goto(self.enemy.position())
+        turtle1.setheading(self.enemy.heading())
+        list = self.enemy.appearence()
+        self.enemy_coordinates.clear()
+        for i in range(len(list)):
+            turtle1.left(90)
+            turtle1.forward(list[i])
+            x_cor = round(turtle1.xcor())
+            y_cor = round(turtle1.ycor())
+            xy = [x_cor, y_cor]
+            self.enemy_coordinates.append(xy)
+
+        turtle1.clear()
+
+        return self.enemy_coordinates
+
+    def check_hit_enemy(self):
+        list = self.enemy_coordinates_f() # coordinates of A, B, C, D
+
+        # Set a bounding box around enemy
+        # calculate sum of triangles that created by Laser 4 points bounding box
+        # if sum <= square of bounding box then laser hit enemy
+        """
+        B______________A
+    \___|              | \
+    /   |              | /
+        C______________D
+        """
+        A, B, C, D = list
+        AB = CD = round(math.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2))
+        BC = DA = round(math.sqrt((B[0] - C[0])**2 + (B[1] - C[1])**2))
+        S = AB*BC
+
+        PA = round(math.sqrt((A[0] - self.xcor())**2 + (A[1] - self.ycor())**2))
+        PB = round(math.sqrt((B[0] - self.xcor())**2 + (B[1] - self.ycor())**2))
+        PC = round(math.sqrt((C[0] - self.xcor())**2 + (C[1] - self.ycor())**2))
+        PD = round(math.sqrt((D[0] - self.xcor())**2 + (D[1] - self.ycor())**2))
+
+        P1 = (PA+PB+AB)//2 # PAB
+        P2 = (PB+PC+BC)//2 # PBC
+        P3 = (PC+PD+CD)//2 # PCD
+        P4 = (PD+PA+DA)//2 # PDA
+
+        S1 = P1*(P1 - PA)*(P1 - PB)*(P1 - AB)
+        S2 = P2*(P2 - PB)*(P2 - PC)*(P2 - BC)
+        S3 = P3*(P3 - PC)*(P3 - PD)*(P3 - CD)
+        S4 = P4*(P4 - PD)*(P4 - PA)*(P4 - DA)
+        S2s = [S1, S2, S3, S4]
+
+        for i in range (len(S2s)):
+            if S2s[i] > 0:
+                S2s[i] = math.sqrt(S2s[i])
+            else:
+                S2s[i] = 0
+
+        if (S2s[0] + S2s[1] + S2s[2] + S2s[3] > S):
+            return -1
+        else:
+            winsound.PlaySound("src\\Explosion.wav", winsound.SND_ASYNC)
+            return 0
+
+    def random_shoot(self, fire_pos):
+        if (self.starcraft.heading() == fire_pos):
+            self.shoot()
+
+
+"""
+self.hideturtle()
+self.penup()
+self.goto(self.starcraft.position())
+self.setheading(self.starcraft.heading())
+self.left(90)
+self.forward(2) # Adjust laser cannon position
+self.right(90)
+self.pendown()
+winsound.PlaySound(self.sound, winsound.SND_ASYNC)
+"""
