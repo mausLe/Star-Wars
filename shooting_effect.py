@@ -117,7 +117,7 @@ class LaserCannon(turtle.Turtle):
                 self.enemy[tie_index].setheading(90)
 
             self.enemy[tie_index].showturtle()
-
+            global_var.score = global_var.score + 1
             return tie_index
 
     def check_collision(self):
@@ -138,7 +138,7 @@ class LaserCannon(turtle.Turtle):
             self.clear()
         else:
             turtle.ontimer(self.repeat_shoot, t = 1)
-
+            # self.repeat_shoot()
     def shoot(self):
         self.hideturtle()
         self.penup()
@@ -238,19 +238,14 @@ class TIECannon(LaserCannon):
             winsound.PlaySound("src\\Explosion.wav", winsound.SND_ASYNC)
             return 0
 
-    def random_shoot(self, fire_pos):
-        if (self.starcraft.heading() == fire_pos):
+    def random_shoot(self):
+        # if (self.starcraft.heading() == fire_pos):
+            # self.shoot()
+        if (self.starcraft.heading() == 180):
             self.shoot()
-
-
 """
-self.hideturtle()
-self.penup()
-self.goto(self.starcraft.position())
-self.setheading(self.starcraft.heading())
-self.left(90)
-self.forward(2) # Adjust laser cannon position
-self.right(90)
-self.pendown()
-winsound.PlaySound(self.sound, winsound.SND_ASYNC)
+    def shoot_enemy(self):
+        print(round(self.starcraft.towards(self.enemy.position()))," ",self.starcraft.heading())
+        if (round(self.starcraft.towards(self.enemy.position())) - self.starcraft.heading())  < 10:
+            self.shoot()
 """
