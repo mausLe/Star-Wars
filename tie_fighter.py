@@ -12,6 +12,7 @@ class TIE(turtle.Turtle):
         self.hideturtle()
         self.penup()
         self.dir = 1 # Positive # -1 is Neg
+        self.fire = random.randint(-500, 500)
         #self.goto(0,300)
 
     def drawing_tie(self):
@@ -79,13 +80,36 @@ class TIE(turtle.Turtle):
     def orbit(self):
         x_cor = round(self.xcor())
         y_cor = round(self.ycor())
+        head = round(self.heading())
 
         if (x_cor > global_var.width/2 + 80) or (x_cor < -global_var.width/2 - 80):
             self.dir = -self.dir
             self.right(180)
+        # fire_pos_abs = abs(self.fire)
+        # x_cor_abs = abs(x_cor)
+
+        if ((abs(self.fire - x_cor) <= 10) and y_cor == 270) or (y_cor < 265): # Tie meets the fire position
+            if self.dir == 1: # Direction West -> East
+                # self.fire = self.fire - 20
+                self.circle(-100, 15)
+            else:
+                self.circle(100, 15)
+                # self.fire = self.fire + 20
+
 
         if (y_cor == 270):
             self.forward(20)
+        elif (self.dir == 1) and (head == 90): # Direction West -> East
+            self.goto(self.fire + 40, 270)
+            self.setheading(90)
+        elif (self.dir == -1) and (head == 270):
+            self.goto(self.fire - 40, 270)
+            self.setheading(270)
+
+        print("heading: ", head, ",   fire pos: ", self.fire, ",    dir: ", self.dir)
+        print(self.xcor()," ", self.ycor())
+
+
 
         turtle.ontimer(self.orbit,50)
 

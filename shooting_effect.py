@@ -100,10 +100,12 @@ class LaserCannon(turtle.Turtle):
         else:
             winsound.PlaySound("src\\Explosion.wav", winsound.SND_ASYNC)
             self.enemy[tie_index].hideturtle()
+            # Random the fire position every round
+            self.enemy[tie_index].fire = random.randint(-500, 500)
 
             if (self.enemy[tie_index].dir == 1):
                 self.enemy[tie_index].dir = -1
-                self.enemy[tie_index].goto(global_var.width//2 + 75, 270)
+                self.enemy[tie_index].goto(global_var.width//2 + 80, 270)
                 self.enemy[tie_index].setheading(270)
                 print(self.enemy[tie_index].position())
                 print(self.enemy[tie_index].heading())
@@ -111,7 +113,7 @@ class LaserCannon(turtle.Turtle):
 
             else:
                 self.enemy[tie_index].dir = 1
-                self.enemy[tie_index].goto(-global_var.width//2 - 75, 270)
+                self.enemy[tie_index].goto(-global_var.width//2 - 80, 270)
                 self.enemy[tie_index].setheading(90)
 
             self.enemy[tie_index].showturtle()

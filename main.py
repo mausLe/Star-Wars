@@ -41,7 +41,7 @@ xwing.drawing_xwing()
 xwing.speed(0)
 xwing.backward(200)
 
-ties = [tie_fighter.TIE() for i in range(2)]
+ties = [tie_fighter.TIE() for i in range(1)]
 for tie in ties:
     tie.drawing_tie()
     tie.speed(1)
@@ -49,15 +49,15 @@ for tie in ties:
 #laser1 = shooting_effect.XWingCannon(xwing, ties[1])
 
 laser = shooting_effect.LaserCannon(xwing, ties)
-ties[0].goto(-200, 270)
+ties[0].goto(700, 270)
 ties[0].right(90)
 
 ties[0].orbit()
 
-ties[1].goto(0, 270)
-ties[1].right(270)
+# ties[1].goto(0, 270)
+# ties[1].right(270)
 
-ties[1].orbit() # Bổ sung hàm move
+# ties[1].orbit() # Bổ sung hàm move
     # win.ontimer(tie1.move(), 500) # Bổ sung hàm move
 
 win.onkeypress(laser.shoot, "space")
