@@ -50,7 +50,7 @@ score_board.write("MAY THE FORCE BE WITH YOU", align = "center", font=("Helvetic
 time.sleep(2)
 
 win.tracer(0)
-score_board.goto(-450, -300)
+score_board.goto(-400, -300)
 
 ties = [tie_fighter.TIE() for i in range(2)]
 for tie in ties:
@@ -90,7 +90,15 @@ while True:
     TIE0_laser.random_shoot()
     TIE1_laser.random_shoot()
     score_board.clear()
-    score_board.write("Score: {}".format(global_var.score), align = "Center", font=("Helvetica", 24, "normal"))
+    score_board.write("Score: {}    Shield: {} %".format(global_var.score, global_var.live*25), align = "Center", font=("Helvetica", 24, "normal"))
+
+    if (global_var.live <= 0):
+        score_board.clear()
+        score_board.goto(0, 0)
+        score_board.color("Yellow")
+        score_board.write("GAMEOVER", align = "center", font=("Helvetica", 40, "bold"))
+        time.sleep(2)
+        win.bye()
 
     win.update()
 

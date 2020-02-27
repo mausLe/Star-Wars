@@ -113,12 +113,14 @@ class LaserCannon(turtle.Turtle):
                 self.enemy[tie_index].setheading(270)
                 # print(self.enemy[tie_index].position())
                 # print(self.enemy[tie_index].heading())
+                # self.random_heading = random.randrange(90, 255, 15)
 
 
             else:
                 self.enemy[tie_index].dir = 1
                 self.enemy[tie_index].goto(-global_var.width//2 - 80, 270)
                 self.enemy[tie_index].setheading(90)
+                # self.random_heading = random.randrange(115, 270, 15)
 
             self.enemy[tie_index].showturtle()
             global_var.score = global_var.score + 1
@@ -142,6 +144,7 @@ class LaserCannon(turtle.Turtle):
             self.clear()
         else:
             turtle.ontimer(self.repeat_shoot, t = 2)
+
             # self.repeat_shoot()
     def shoot(self):
         self.hideturtle()
@@ -177,6 +180,7 @@ class TIECannon(LaserCannon):
         self.setheading(self.starcraft.heading())
         self.sound = 'src\\TIE-Fire.wav'
 
+        self.random_heading = 180
         self.enemy_bounding_box = turtle.Turtle()
         self.enemy_bounding_box.hideturtle()
         self.enemy_bounding_box.penup()
@@ -240,16 +244,25 @@ class TIECannon(LaserCannon):
             else:
                 S2s[i] = 0
 
+
         if (S2s[0] + S2s[1] + S2s[2] + S2s[3] > S):
             return -1
         else:
             winsound.PlaySound("src\Explosion.wav", winsound.SND_ASYNC)
+            global_var.live = global_var.live - 1
             return 0
 
     def random_shoot(self):
-        # if (self.starcraft.heading() == fire_pos):
-            # self.shoot()
-#         heading = self.starcraft.heading()
-        if (self.starcraft.heading() == 180):
-            # print(self.starcraft.heading())
+        heading = self.starcraft.heading()
+        if (heading == 180):
             turtle.ontimer(self.shoot(), 50)
+
+
+
+"""
+if (self.starcraft.dir == 1):
+    self.random_heading = random.randrange(90, 255, 15)
+else:
+    self.random_heading = random.randrange(115, 270, 15)
+    print(self.random_heading)
+"""
