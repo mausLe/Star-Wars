@@ -115,7 +115,7 @@ class TIE(turtle.Turtle):
         # print("heading: ", head, ",   fire pos: ", self.circle_route_pos, ",    dir: ", self.dir)
         # print(self.xcor()," ", self.ycor())
 
-        turtle.ontimer(self.orbit,80)
+        turtle.ontimer(self.orbit,50)
 
     def move(self): # Bổ sung hàm move
         self.forward(50)

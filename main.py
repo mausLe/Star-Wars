@@ -18,22 +18,39 @@ win.setup(width, height)
 win.title("Star Wars")
 win.bgpic("src\\bg.gif")
 win.update()
-win.tracer(0)
 turtle.mode("logo")
+turtle.setundobuffer(42)
 
 global_var.score = 0
 score_board = turtle.Turtle()
 #score_board.shape("square")
-score_board.color("white")
+score_board.color("Deep Sky Blue")
 score_board.penup()
 score_board.hideturtle()
-score_board.goto(-450, -300)
-score_board.write("Score: {}".format(global_var.score), align = "center", font=("Courier", 24, "normal"))
+score_board.speed(1)
 
+# score_board.goto(-450, -300)
+# score_board.write("Score: {}".format(global_var.score), align = "center", font=("Courier", 24, "normal"))
+
+win.tracer(0)
 xwing = x_wing.XWing()
 xwing.drawing_xwing()
 xwing.speed(0)
-xwing.backward(250)
+xwing.backward(230)
+
+score_board.goto(0, 0)
+win.tracer(1)
+
+score_board.write("Use W/S/A/D - Control       SPACE - Shoot", align = "center", font=("Helvetica", 40, "bold"))
+time.sleep(2)
+score_board.clear()
+
+score_board.color("Yellow")
+score_board.write("MAY THE FORCE BE WITH YOU", align = "center", font=("Helvetica", 40, "bold"))
+time.sleep(2)
+
+win.tracer(0)
+score_board.goto(-450, -300)
 
 ties = [tie_fighter.TIE() for i in range(2)]
 for tie in ties:
@@ -64,6 +81,7 @@ win.onkeypress(xwing.go_forward, "w")
 win.onkeypress(xwing.go_backward, "s")
 win.onkeypress(xwing.turn_right, "d")
 win.onkeypress(xwing.turn_left, "a")
+#print(turtle.turtles())
 win.listen()
 
 while True:
@@ -72,7 +90,7 @@ while True:
     TIE0_laser.random_shoot()
     TIE1_laser.random_shoot()
     score_board.clear()
-    score_board.write("Score: {}".format(global_var.score), align = "Center", font=("Courier", 24, "normal"))
+    score_board.write("Score: {}".format(global_var.score), align = "Center", font=("Helvetica", 24, "normal"))
 
     win.update()
 

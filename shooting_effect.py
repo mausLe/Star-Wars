@@ -24,27 +24,31 @@ class LaserCannon(turtle.Turtle):
         self.setheading(self.starcraft.heading())
         self.sound = 'src\\XWing-Laser.wav'
 
+        self.enemy_bounding_box = turtle.Turtle()
+        self.enemy_bounding_box.hideturtle()
+        self.enemy_bounding_box.penup()
+
     def enemy_coordinates_f(self):
-        turtle1 = turtle.Turtle()
-        turtle1.hideturtle()
-        turtle1.penup()
+        # turtle1 = turtle.Turtle()
+        # turtle1.hideturtle()
+        # turtle1.penup()
 
         # For each enemy (e.g: 3) calculate coordinates seperately
         self.enemy_coordinates.clear()
         for tie in self.enemy:
-            turtle1.goto(tie.position())
-            turtle1.setheading(tie.heading())
+            self.enemy_bounding_box.goto(tie.position())
+            self.enemy_bounding_box.setheading(tie.heading())
             list = tie.appearence()
 
             index = self.enemy.index(tie)*4
             for i in range(len(list)):
-                turtle1.left(90)
-                turtle1.forward(list[i])
-                x_cor = round(turtle1.xcor())
-                y_cor = round(turtle1.ycor())
+                self.enemy_bounding_box.left(90)
+                self.enemy_bounding_box.forward(list[i])
+                x_cor = round(self.enemy_bounding_box.xcor())
+                y_cor = round(self.enemy_bounding_box.ycor())
                 xy = [x_cor, y_cor]
                 self.enemy_coordinates.append(xy)
-
+        self.enemy_bounding_box.clear()
         return self.enemy_coordinates
 
     def check_hit_enemy(self):
@@ -132,12 +136,12 @@ class LaserCannon(turtle.Turtle):
 
     def repeat_shoot(self):
         self.pendown()
-        self.forward(10)
+        self.forward(20)
         x = self.check_hit_enemy()
         if self.check_collision() or x != -1:
             self.clear()
         else:
-            turtle.ontimer(self.repeat_shoot, t = 1)
+            turtle.ontimer(self.repeat_shoot, t = 2)
             # self.repeat_shoot()
     def shoot(self):
         self.hideturtle()
@@ -148,7 +152,7 @@ class LaserCannon(turtle.Turtle):
         self.forward(2) # Adjust laser cannon position
         self.right(90)
         self.pendown()
-        winsound.PlaySound(self.sound, winsound.SND_ASYNC)
+        winsound.PlaySound(self.sound, winsound.SND_ASYNC )
         self.repeat_shoot()
 
 # X-Wing inherite from LaserCannon
@@ -162,7 +166,7 @@ class TIECannon(LaserCannon):
     def __init__(self, starcraft, enemy): # Parameter 0-Rebel, 1-Empire
         turtle.Turtle.__init__(self)
         self.hideturtle()
-        self.color("Chartreuse")#cannon_colors[random.randint(1, len(cannon_colors) - 1)])
+        self.color(cannon_colors[random.randint(1, len(cannon_colors) - 1)])
         self.pensize(7)
         self.penup()
         self.speed(0)
@@ -173,23 +177,27 @@ class TIECannon(LaserCannon):
         self.setheading(self.starcraft.heading())
         self.sound = 'src\\TIE-Fire.wav'
 
+        self.enemy_bounding_box = turtle.Turtle()
+        self.enemy_bounding_box.hideturtle()
+        self.enemy_bounding_box.penup()
+
     def enemy_coordinates_f(self):
-        turtle1 = turtle.Turtle()
-        turtle1.hideturtle()
-        turtle1.penup()
-        turtle1.goto(self.enemy.position())
-        turtle1.setheading(self.enemy.heading())
+        # turtle1 = turtle.Turtle()
+        # turtle1.hideturtle()
+        # turtle1.penup()
+        self.enemy_bounding_box.goto(self.enemy.position())
+        self.enemy_bounding_box.setheading(self.enemy.heading())
         list = self.enemy.appearence()
         self.enemy_coordinates.clear()
         for i in range(len(list)):
-            turtle1.left(90)
-            turtle1.forward(list[i])
-            x_cor = round(turtle1.xcor())
-            y_cor = round(turtle1.ycor())
+            self.enemy_bounding_box.left(90)
+            self.enemy_bounding_box.forward(list[i])
+            x_cor = round(self.enemy_bounding_box.xcor())
+            y_cor = round(self.enemy_bounding_box.ycor())
             xy = [x_cor, y_cor]
             self.enemy_coordinates.append(xy)
 
-        turtle1.clear()
+        self.enemy_bounding_box.clear()
 
         return self.enemy_coordinates
 
@@ -235,17 +243,13 @@ class TIECannon(LaserCannon):
         if (S2s[0] + S2s[1] + S2s[2] + S2s[3] > S):
             return -1
         else:
-            winsound.PlaySound("src\\Explosion.wav", winsound.SND_ASYNC)
+            winsound.PlaySound("src\Explosion.wav", winsound.SND_ASYNC)
             return 0
 
     def random_shoot(self):
         # if (self.starcraft.heading() == fire_pos):
             # self.shoot()
+#         heading = self.starcraft.heading()
         if (self.starcraft.heading() == 180):
-            self.shoot()
-"""
-    def shoot_enemy(self):
-        print(round(self.starcraft.towards(self.enemy.position()))," ",self.starcraft.heading())
-        if (round(self.starcraft.towards(self.enemy.position())) - self.starcraft.heading())  < 10:
-            self.shoot()
-"""
+            # print(self.starcraft.heading())
+            turtle.ontimer(self.shoot(), 50)

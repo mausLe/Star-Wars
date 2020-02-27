@@ -2,7 +2,7 @@ import turtle
 import time
 import random
 
-xwingcolors = ["Deep Pink", "brown", "Light Gray"]
+xwingcolors = ["Red", "brown", "Sandy Brown"]
 
 class XWing(turtle.Turtle):
     def __init__(self):
@@ -16,7 +16,6 @@ class XWing(turtle.Turtle):
         self.begin_poly()
         self.penup()
         self.speed(0)
-        self.color("Yellow")
         self.left(90);
 
         self.forward(15)
