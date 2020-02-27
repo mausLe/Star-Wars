@@ -145,7 +145,6 @@ class LaserCannon(turtle.Turtle):
         else:
             turtle.ontimer(self.repeat_shoot, t = 2)
 
-            # self.repeat_shoot()
     def shoot(self):
         self.hideturtle()
         self.penup()

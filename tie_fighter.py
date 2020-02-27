@@ -14,8 +14,6 @@ class TIE(turtle.Turtle):
         self.name = "TIE Fighter"
         self.dir = 1 # Positive # -1 is Neg
         self.circle_route_pos = random.randint(-500, 500)
-        # self.fire = random.randrange(105, 270, 15)
-        #self.goto(0,300)
 
     def drawing_tie(self):
         # create body of the tie
@@ -90,9 +88,6 @@ class TIE(turtle.Turtle):
             self.circle_route_pos = random.randint(-500, 500)
             # print(self.circle_route_pos)
 
-        # fire_pos_abs = abs(self.circle_route_pos)
-        # x_cor_abs = abs(x_cor)
-
         if ((abs(self.circle_route_pos - x_cor) <= 10) and y_cor == 270) or (y_cor < 265): # Tie meets the fire position
             if self.dir == 1: # Direction West -> East
                 # self.circle_route_pos = self.circle_route_pos - 20
@@ -101,7 +96,6 @@ class TIE(turtle.Turtle):
             else:
                 self.fire = random.randrange(90, 255, 15)
                 self.circle(100, 15)
-                # self.circle_route_pos = self.circle_route_pos + 20
 
         if (y_cor == 270):
             self.forward(30)

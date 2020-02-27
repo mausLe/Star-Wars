@@ -23,14 +23,10 @@ turtle.setundobuffer(42)
 
 global_var.score = 0
 score_board = turtle.Turtle()
-#score_board.shape("square")
 score_board.color("Deep Sky Blue")
 score_board.penup()
 score_board.hideturtle()
 score_board.speed(1)
-
-# score_board.goto(-450, -300)
-# score_board.write("Score: {}".format(global_var.score), align = "center", font=("Courier", 24, "normal"))
 
 win.tracer(0)
 xwing = x_wing.XWing()
@@ -39,7 +35,7 @@ xwing.speed(0)
 xwing.backward(230)
 
 score_board.goto(0, 0)
-win.tracer(1)
+# win.tracer(1)
 
 score_board.write("Use W/S/A/D - Control       SPACE - Shoot", align = "center", font=("Helvetica", 40, "bold"))
 time.sleep(2)
@@ -49,7 +45,7 @@ score_board.color("Yellow")
 score_board.write("MAY THE FORCE BE WITH YOU", align = "center", font=("Helvetica", 40, "bold"))
 time.sleep(2)
 
-win.tracer(0)
+#win.tracer(0)
 score_board.goto(-400, -300)
 
 ties = [tie_fighter.TIE() for i in range(2)]
@@ -70,23 +66,17 @@ ties[1].goto(-200, 270)
 ties[1].right(90)
 ties[1].orbit()
 
-
-# ties[1].orbit() # Bổ sung hàm move
-    # win.ontimer(tie1.move(), 500) # Bổ sung hàm move
-
 win.onkeypress(XWing_laser.shoot, "space")
-
 
 win.onkeypress(xwing.go_forward, "w")
 win.onkeypress(xwing.go_backward, "s")
 win.onkeypress(xwing.turn_right, "d")
 win.onkeypress(xwing.turn_left, "a")
-#print(turtle.turtles())
+
 win.listen()
 
 while True:
     # Trong hàm while True chỉ để trường hợp khi nào thua cuộc thì break --> kết thúc trò chơi
-    # TIE0_laser.random_shoot(ties[0].fire) Khong truyen tham so fire_pos
     TIE0_laser.random_shoot()
     TIE1_laser.random_shoot()
     score_board.clear()
@@ -94,7 +84,9 @@ while True:
 
     if (global_var.live <= 0):
         score_board.clear()
-        score_board.goto(0, 0)
+        score_board.goto(0, 40)
+        score_board.write("Score: {}".format(global_var.score), align = "Center", font=("Helvetica", 24, "normal"))
+        score_board.goto(0, -40)
         score_board.color("Yellow")
         score_board.write("GAMEOVER", align = "center", font=("Helvetica", 40, "bold"))
         time.sleep(2)

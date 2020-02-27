@@ -95,8 +95,3 @@ class XWing(turtle.Turtle):
     def appearence(self):
         list = [45, 100, 90, 100]
         return list
-
-    # def check_hit(self):
-        # Checking if it hit the rebel's starcraft
-
-        return None
