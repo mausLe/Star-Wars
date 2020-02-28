@@ -19,7 +19,6 @@ win.title("Star Wars")
 win.bgpic("src\\bg.gif")
 win.update()
 turtle.setundobuffer(42)
-# turtle.mode("logo")
 
 global_var.score = 0
 score_board = turtle.Turtle()
@@ -45,8 +44,7 @@ score_board.clear()
 score_board.color("Yellow")
 score_board.write("MAY THE FORCE BE WITH YOU...", align = "center", font=("Helvetica", 40, "bold"))
 time.sleep(2)
-"""
-"""
+
 score_board.goto(-400, -320)
 
 ties = [tie_fighter.TIE() for i in range(2)]

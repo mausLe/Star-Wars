@@ -262,14 +262,3 @@ class TIECannon(LaserCannon):
         heading = self.starcraft.heading()
         if (heading == 270):
             turtle.ontimer(self.shoot(), 50)
-
-        """
-        turtle.ontimer(self.shoot(), 50)
-        """
-"""
-if (self.starcraft.dir == 1):
-    self.random_heading = random.randrange(90, 255, 15)
-else:
-    self.random_heading = random.randrange(115, 270, 15)
-    print(self.random_heading)
-"""
