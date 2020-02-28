@@ -6,7 +6,7 @@ import winsound
 
 import global_var
 import tie_fighter # To create the Empire's Starcrafts
-import x_wing      # To create the Rebel's figher
+import x_wing      # To create the Rebel's fighter
 import shooting_effect #
 
 os.chdir(os.path.dirname(sys.argv[0]))
@@ -18,8 +18,8 @@ win.setup(width, height)
 win.title("Star Wars")
 win.bgpic("src\\bg.gif")
 win.update()
-turtle.mode("logo")
 turtle.setundobuffer(42)
+# turtle.mode("logo")
 
 global_var.score = 0
 score_board = turtle.Turtle()
@@ -31,48 +31,55 @@ score_board.speed(1)
 win.tracer(0)
 xwing = x_wing.XWing()
 xwing.drawing_xwing()
-xwing.speed(0)
-xwing.backward(230)
+xwing.goto(0, -180)
 
-score_board.goto(0, 0)
-# win.tracer(1)
 
-score_board.write("Use W/S/A/D - Control       SPACE - Shoot", align = "center", font=("Helvetica", 40, "bold"))
-time.sleep(2)
+score_board.write("Turn off TELEX method", align = "center", font=("Helvetica", 40, "bold"))
+time.sleep(1)
+
 score_board.clear()
-
-score_board.color("Yellow")
-score_board.write("MAY THE FORCE BE WITH YOU", align = "center", font=("Helvetica", 40, "bold"))
+score_board.write("Use A/D/R/Q - Control       SPACE - Shoot", align = "center", font=("Helvetica", 40, "bold"))
 time.sleep(2)
 
-#win.tracer(0)
-score_board.goto(-400, -300)
+score_board.clear()
+score_board.color("Yellow")
+score_board.write("MAY THE FORCE BE WITH YOU...", align = "center", font=("Helvetica", 40, "bold"))
+time.sleep(2)
+"""
+"""
+score_board.goto(-400, -320)
 
 ties = [tie_fighter.TIE() for i in range(2)]
 for tie in ties:
     tie.drawing_tie()
 
 XWing_laser = shooting_effect.XWingCannon(xwing, ties)
-
-TIE0_laser = shooting_effect.TIECannon(ties[0], xwing)
-ties[0].goto(700, 270)
-ties[0].right(90)
-ties[0].orbit()
+xwing.goto(0, -180)
 
 TIE0_laser = shooting_effect.TIECannon(ties[0], xwing)
 TIE1_laser = shooting_effect.TIECannon(ties[1], xwing)
 
-ties[1].goto(-200, 270)
-ties[1].right(90)
+ties[0].left(90)
+ties[0].goto(300, 270)
+ties[0].orbit()
+
+ties[1].goto(-global_var.width//2 - 80, 270)
 ties[1].orbit()
 
 win.onkeypress(XWing_laser.shoot, "space")
 
-win.onkeypress(xwing.go_forward, "w")
-win.onkeypress(xwing.go_backward, "s")
-win.onkeypress(xwing.turn_right, "d")
-win.onkeypress(xwing.turn_left, "a")
+# lower key
+win.onkeypress(xwing.rotate_left, "q")
+win.onkeypress(xwing.rotate_right, "r")
+win.onkeypress(xwing.go_toward_right, "d")
+win.onkeypress(xwing.go_toward_left, "a")
+win.listen()
 
+# Upper key
+win.onkeypress(xwing.rotate_left, "Q")
+win.onkeypress(xwing.rotate_right, "R")
+win.onkeypress(xwing.go_toward_right, "D")
+win.onkeypress(xwing.go_toward_left, "A")
 win.listen()
 
 while True:

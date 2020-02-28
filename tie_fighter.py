@@ -12,8 +12,8 @@ class TIE(turtle.Turtle):
         self.hideturtle()
         self.penup()
         self.name = "TIE Fighter"
-        self.dir = 1 # Positive # -1 is Neg
-        self.circle_route_pos = random.randint(-500, 500)
+        self.dir = -1 # Positive # -1 is Neg
+        self.circle_route_pos = random.randint(-100, 100)
 
     def drawing_tie(self):
         # create body of the tie
@@ -21,8 +21,11 @@ class TIE(turtle.Turtle):
         self.penup()
 
         self.speed(0)
-        self.left(90);
+        #self.left(90);
+        self.right(180)
+
         self.circle(30, 60)
+
         self.right(45)
         self.forward(30)
 
@@ -42,14 +45,12 @@ class TIE(turtle.Turtle):
         self.forward(30)
 
         self.right(45)
-        # self.setheading(210)
         self.circle(30, 120)
 
         # Right wing
         self.right(45)
         self.forward(30)
-
-        self.setheading(180)
+        self.right(105)
         self.forward(30)
 
         self.left(90)
@@ -65,7 +66,7 @@ class TIE(turtle.Turtle):
 
         self.right(45)
         self.circle(30, 60)
-        self.setheading(0)
+
         self.showturtle()
         self.end_poly()
 
@@ -85,10 +86,9 @@ class TIE(turtle.Turtle):
         if (x_cor > global_var.width/2 + 80) or (x_cor < -global_var.width/2 - 80):
             self.dir = -self.dir
             self.right(180)
-            self.circle_route_pos = random.randint(-500, 500)
-            # print(self.circle_route_pos)
+            self.circle_route_pos =  random.randint(-400, 400)
 
-        if ((abs(self.circle_route_pos - x_cor) <= 10) and y_cor == 270) or (y_cor < 265): # Tie meets the fire position
+        if ((abs(self.circle_route_pos - x_cor) < 15) and y_cor == 270) or (y_cor < 270) or (y_cor > 270): # Tie meets the fire position
             if self.dir == 1: # Direction West -> East
                 # self.circle_route_pos = self.circle_route_pos - 20
                 self.fire = random.randrange(105, 270, 15)
@@ -99,17 +99,15 @@ class TIE(turtle.Turtle):
 
         if (y_cor == 270):
             self.forward(30)
-        elif (self.dir == 1) and (head == 90): # Direction West -> East
+        elif (self.dir == 1) and (head == 0): # Direction West -> East
             self.goto(self.circle_route_pos + 40, 270)
-            self.setheading(90)
-        elif (self.dir == -1) and (head == 270):
+            self.setheading(0)
+        elif (self.dir == -1) and (head == 180):
             self.goto(self.circle_route_pos - 40, 270)
-            self.setheading(270)
+            self.setheading(180)
 
-        # print("heading: ", head, ",   fire pos: ", self.circle_route_pos, ",    dir: ", self.dir)
-        # print(self.xcor()," ", self.ycor())
 
-        turtle.ontimer(self.orbit,50)
+        turtle.ontimer(self.orbit, 50)
 
     def move(self): # Bổ sung hàm move
         self.forward(50)

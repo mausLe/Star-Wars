@@ -39,7 +39,6 @@ class LaserCannon(turtle.Turtle):
             self.enemy_bounding_box.goto(tie.position())
             self.enemy_bounding_box.setheading(tie.heading())
             list = tie.appearence()
-
             index = self.enemy.index(tie)*4
             for i in range(len(list)):
                 self.enemy_bounding_box.left(90)
@@ -49,6 +48,7 @@ class LaserCannon(turtle.Turtle):
                 xy = [x_cor, y_cor]
                 self.enemy_coordinates.append(xy)
         self.enemy_bounding_box.clear()
+
         return self.enemy_coordinates
 
     def check_hit_enemy(self):
@@ -105,12 +105,13 @@ class LaserCannon(turtle.Turtle):
             winsound.PlaySound("src\\Explosion.wav", winsound.SND_ASYNC)
             self.enemy[tie_index].hideturtle()
             # Random the fire position every round
-            self.enemy[tie_index].fire = random.randint(-500, 500)
+
+            self.enemy[tie_index].fire = random.randint(self.starcraft.xcor()- 50, self.starcraft.xcor()+50)
 
             if (self.enemy[tie_index].dir == 1):
                 self.enemy[tie_index].dir = -1
                 self.enemy[tie_index].goto(global_var.width//2 + 80, 270)
-                self.enemy[tie_index].setheading(270)
+                self.enemy[tie_index].setheading(180)
                 # print(self.enemy[tie_index].position())
                 # print(self.enemy[tie_index].heading())
                 # self.random_heading = random.randrange(90, 255, 15)
@@ -119,7 +120,7 @@ class LaserCannon(turtle.Turtle):
             else:
                 self.enemy[tie_index].dir = 1
                 self.enemy[tie_index].goto(-global_var.width//2 - 80, 270)
-                self.enemy[tie_index].setheading(90)
+                self.enemy[tie_index].setheading(0)
                 # self.random_heading = random.randrange(115, 270, 15)
 
             self.enemy[tie_index].showturtle()
@@ -149,7 +150,12 @@ class LaserCannon(turtle.Turtle):
         self.hideturtle()
         self.penup()
         self.goto(self.starcraft.position())
-        self.setheading(self.starcraft.heading())
+
+        if self.starcraft.name == "X-Wing":
+            self.setheading(self.starcraft.heading() + 90)
+        else:
+            self.setheading(self.starcraft.heading())
+
         self.left(90)
         self.forward(2) # Adjust laser cannon position
         self.right(90)
@@ -192,6 +198,7 @@ class TIECannon(LaserCannon):
         self.enemy_bounding_box.setheading(self.enemy.heading())
         list = self.enemy.appearence()
         self.enemy_coordinates.clear()
+        self.enemy_bounding_box.left(90)
         for i in range(len(list)):
             self.enemy_bounding_box.left(90)
             self.enemy_bounding_box.forward(list[i])
@@ -253,11 +260,12 @@ class TIECannon(LaserCannon):
 
     def random_shoot(self):
         heading = self.starcraft.heading()
-        if (heading == 180):
+        if (heading == 270):
             turtle.ontimer(self.shoot(), 50)
 
-
-
+        """
+        turtle.ontimer(self.shoot(), 50)
+        """
 """
 if (self.starcraft.dir == 1):
     self.random_heading = random.randrange(90, 255, 15)

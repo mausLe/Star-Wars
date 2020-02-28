@@ -16,7 +16,7 @@ class XWing(turtle.Turtle):
         self.begin_poly()
         self.penup()
         self.speed(0)
-        self.left(90);
+        self.right(90);
 
         self.forward(15)
 
@@ -36,7 +36,7 @@ class XWing(turtle.Turtle):
 
         self.left(90)
         self.forward(15)
-        self.setheading(180)
+        self.right(90)
         self.forward(10)
         self.left(90)
         self.forward(20)
@@ -55,7 +55,7 @@ class XWing(turtle.Turtle):
         self.right(90)
         self.forward(10)
 
-        self.setheading(0)
+        self.left(90)
         self.forward(60)
         self.left(90)
         self.forward(10)
@@ -80,16 +80,23 @@ class XWing(turtle.Turtle):
         return self
 
 
-    def turn_left(self):
-        self.left(5)
+    def rotate_left(self):
+        self.left(10)
 
-    def turn_right(self):
-        self.right(5)
+    def rotate_right(self):
+        self.right(10)
 
-    def go_forward(self):
+    def go_toward_right(self):
+
+
+        if self.heading() != 0:
+
+            turtle.ontimer(self.setheading(0), 10)
         self.forward(10)
 
-    def go_backward(self):
+    def go_toward_left(self):
+        if self.heading() != 0:
+            turtle.ontimer(self.setheading(0), 10)
         self.backward(10)
 
     def appearence(self):
