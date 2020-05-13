@@ -18,7 +18,6 @@ win.setup(width, height)
 win.title("Star Wars")
 win.bgpic("src\\bg.gif")
 win.update()
-turtle.setundobuffer(42)
 
 global_var.score = 0
 score_board = turtle.Turtle()
@@ -85,7 +84,7 @@ while True:
     TIE0_laser.random_shoot()
     TIE1_laser.random_shoot()
     score_board.clear()
-    score_board.write("Score: {}    Shield: {} %".format(global_var.score, global_var.live*25), align = "Center", font=("Helvetica", 24, "normal"))
+    score_board.write("Score: {}    Shield: {} %".format(global_var.score, (global_var.live - 1)*25), align = "Center", font=("Helvetica", 24, "normal"))
 
     if (global_var.live <= 0):
         score_board.clear()
@@ -96,7 +95,7 @@ while True:
         score_board.write("GAMEOVER", align = "center", font=("Helvetica", 40, "bold"))
         time.sleep(2)
         win.bye()
-
+        
     win.update()
+win.mainloop()
 
-turtle.mainloop()
